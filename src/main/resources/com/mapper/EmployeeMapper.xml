@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.EmployeeMapper">
 
+
+
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.beans.Employee">
+    <resultMap id="BaseResultMap" type="com.pojo.po.Employee">
         <id column="emp_id" property="empId" />
         <result column="emp_name" property="empName" />
         <result column="gender" property="gender" />
@@ -15,5 +17,34 @@
     <sql id="Base_Column_List">
         emp_id, emp_name, gender, email, dept_id
     </sql>
+
+
+
+    <resultMap type="com.pojo.po.Employee" id="WithDeptResultMap">
+        <id column="emp_id" jdbcType="INTEGER" property="empId" />
+        <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+        <result column="gender" jdbcType="CHAR" property="gender" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+        <association property="department" javaType="com.pojo.po.Department">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+
+
+
+    <sql id="WithDept_Column_List">
+    e.emp_id, e.emp_name, e.gender, e.email, e.dept_id,d.dept_id,d.dept_name
+    </sql>
+
+
+    <select id="selectByEmpIdWithDept" resultMap="WithDeptResultMap">
+        select
+        <include refid="WithDept_Column_List" />
+        FROM tbl_employee e
+        left join tbl_department d on e.`dept_id`=d.`dept_id`
+        where emp_id = #{id}
+    </select>
 
 </mapper>

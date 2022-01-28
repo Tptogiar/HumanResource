@@ -1,6 +1,6 @@
 package com.service.impl;
 
-import com.beans.Department;
+import com.pojo.po.Department;
 import com.mapper.DepartmentMapper;
 import com.service.DepartmentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

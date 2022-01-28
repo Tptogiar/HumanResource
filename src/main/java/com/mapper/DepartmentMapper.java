@@ -1,6 +1,6 @@
 package com.mapper;
 
-import com.beans.Department;
+import com.pojo.po.Department;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

@@ -1,6 +1,6 @@
 package com.mapper;
 
-import com.beans.Employee;
+import com.pojo.po.Employee;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -12,5 +12,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2022-01-28
  */
 public interface EmployeeMapper extends BaseMapper<Employee> {
+
+    public Employee selectByEmpIdWithDept(Integer id);
 
 }

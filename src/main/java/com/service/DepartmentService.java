@@ -1,6 +1,6 @@
 package com.service;
 
-import com.beans.Department;
+import com.pojo.po.Department;
 import com.baomidou.mybatisplus.service.IService;
 
 /**

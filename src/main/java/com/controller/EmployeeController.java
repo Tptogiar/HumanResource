@@ -1,9 +1,18 @@
 package com.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
+import com.pojo.po.Employee;
+import com.pojo.vo.Msg;
+import com.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -16,6 +25,22 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+
+    @GetMapping("/emps")
+    @ResponseBody
+    public Msg getEmps(
+            @RequestParam(value = "page",defaultValue = "1") Integer page,
+            @RequestParam(value = "per_page",defaultValue = "5")Integer size
+    ){
+        Page<Employee> emps = employeeService.getEmps(page, size);
+        Msg msg = Msg.success();
+        return msg.addData("emps", emps);
+    }
+
 
 }
 
