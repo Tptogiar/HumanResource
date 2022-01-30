@@ -4,7 +4,10 @@ import com.pojo.po.Department;
 import com.mapper.DepartmentMapper;
 import com.service.DepartmentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
 
+    @Autowired
+    DepartmentMapper departmentMapper;
+
+
+    @Override
+    public List<Department> getDepts() {
+        return departmentMapper.selectList(null);
+    }
 }

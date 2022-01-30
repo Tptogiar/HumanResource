@@ -16,4 +16,6 @@ import com.baomidou.mybatisplus.service.IService;
 public interface EmployeeService extends IService<Employee> {
 
     PageInfo<Employee> getEmps(Integer current, Integer size);
+
+    boolean isUsernameExist(String username);
 }

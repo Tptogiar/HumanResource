@@ -36,6 +36,14 @@ public class Msg {
         return success((String) null);
     }
 
+    public static Msg fail(String message){
+        return new Msg(100,message);
+    }
+
+    public static Msg fail(){
+        return fail((String) null);
+    }
+
     public  Msg addData(String key,Object value){
         if (this.data==null){
             this.data=new HashMap<>();

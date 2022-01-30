@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pojo.po.Employee;
@@ -35,5 +37,11 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         List<Employee> employees = employeeMapper.selectList(null);
         PageInfo<Employee> employeePageInfo = new PageInfo<>(employees);
         return employeePageInfo;
+    }
+
+    @Override
+    public boolean isUsernameExist(String username) {
+        Integer count = employeeMapper.selectCount(new EntityWrapper<Employee>().eq("emp_name", username));
+        return count!=0;
     }
 }
