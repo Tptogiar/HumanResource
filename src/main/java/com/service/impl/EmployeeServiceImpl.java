@@ -44,4 +44,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         Integer count = employeeMapper.selectCount(new EntityWrapper<Employee>().eq("emp_name", username));
         return count!=0;
     }
+
+
+    @Override
+    public Employee getEmp(Integer id) {
+        return employeeMapper.selectByEmpIdWithDept(id);
+    }
 }

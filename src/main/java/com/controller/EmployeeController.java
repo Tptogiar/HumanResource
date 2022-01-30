@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageInfo;
 import com.pojo.po.Employee;
 import com.pojo.vo.Msg;
@@ -43,7 +44,7 @@ public class EmployeeController {
     }
 
 
-    @PostMapping("/emps")
+    @PostMapping("/emp")
     @ResponseBody
     public Msg saveEmp(@Valid Employee employee, BindingResult result){
         if (result.hasErrors()){
@@ -74,5 +75,20 @@ public class EmployeeController {
             return Msg.fail("用户名不可用");
         }
     }
+
+    @GetMapping("/emp/{id}")
+    @ResponseBody
+    public Msg getEmp(@PathVariable("id")Integer id){
+        Employee employee =employeeService.getEmp(id);
+        if (employee==null){
+            return Msg.fail();
+        }
+        return Msg.success().addData("emp",employee);
+    }
+
+
+
+
+
 
 }
