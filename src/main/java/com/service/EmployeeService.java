@@ -1,6 +1,6 @@
 package com.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.github.pagehelper.PageInfo;
 import com.pojo.po.Employee;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -15,5 +15,5 @@ import com.baomidou.mybatisplus.service.IService;
 
 public interface EmployeeService extends IService<Employee> {
 
-    Page<Employee> getEmps(Integer current, Integer size);
+    PageInfo<Employee> getEmps(Integer current, Integer size);
 }

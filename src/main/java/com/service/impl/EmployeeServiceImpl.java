@@ -1,6 +1,7 @@
 package com.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pojo.po.Employee;
 import com.mapper.EmployeeMapper;
 import com.service.EmployeeService;
@@ -25,10 +26,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     private EmployeeMapper employeeMapper;
 
     @Override
-    public Page<Employee> getEmps(Integer current, Integer size) {
-        Page<Employee> employeePage = new Page<>(current, size);
-        List<Employee> employees = employeeMapper.selectPage(employeePage, null);
-        employeePage.setRecords(employees);
-        return employeePage;
+    public PageInfo<Employee> getEmps(Integer current, Integer size) {
+//        Page<Employee> employeePage = new Page<>(current, size);
+//        List<Employee> employees = employeeMapper.selectPage(employeePage, null);
+//        employeePage.setRecords(employees);
+//        return employeePage;
+        PageHelper.startPage(current,size);
+        List<Employee> employees = employeeMapper.selectList(null);
+        PageInfo<Employee> employeePageInfo = new PageInfo<>(employees);
+        return employeePageInfo;
     }
 }

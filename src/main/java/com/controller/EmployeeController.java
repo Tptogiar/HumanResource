@@ -1,12 +1,13 @@
 package com.controller;
 
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pojo.po.Employee;
 import com.pojo.vo.Msg;
 import com.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
@@ -34,13 +35,14 @@ public class EmployeeController {
     @ResponseBody
     public Msg getEmps(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
-            @RequestParam(value = "per_page",defaultValue = "5")Integer size
+            @RequestParam(value = "per_page",defaultValue = "5")Integer size,
+            Model model
     ){
-        Page<Employee> emps = employeeService.getEmps(page, size);
+        PageInfo<Employee> emps = employeeService.getEmps(page, size);
         Msg msg = Msg.success();
+        model.addAttribute("emps",emps);
         return msg.addData("emps", emps);
     }
 
 
 }
-
