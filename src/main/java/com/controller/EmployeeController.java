@@ -5,9 +5,15 @@ import com.pojo.po.Employee;
 import com.pojo.vo.Msg;
 import com.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -39,7 +45,15 @@ public class EmployeeController {
 
     @PostMapping("/emps")
     @ResponseBody
-    public Msg saveEmp(Employee employee){
+    public Msg saveEmp(@Valid Employee employee, BindingResult result){
+        if (result.hasErrors()){
+            Map<String, Object> failMsg = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()) {
+                failMsg.put(fieldError.getField(),fieldError.getDefaultMessage());
+            }
+            return Msg.fail().addData("errorFields",failMsg);
+        }
+
         employeeService.insert(employee);
         return Msg.success();
     }
