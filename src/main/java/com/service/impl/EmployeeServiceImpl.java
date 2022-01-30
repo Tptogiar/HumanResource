@@ -50,4 +50,18 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     public Employee getEmp(Integer id) {
         return employeeMapper.selectByEmpIdWithDept(id);
     }
+
+    @Override
+    public boolean deleteEmp(Integer id) {
+        Integer integer = employeeMapper.deleteById(id);
+        return integer==1;
+    }
+
+    @Override
+    public boolean deleteBatch(List<Integer> del_ids) {
+        Integer integer = employeeMapper.deleteBatchIds(del_ids);
+        return integer!=0;
+    }
+
+
 }

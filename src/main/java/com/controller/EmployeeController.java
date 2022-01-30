@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,6 +103,38 @@ public class EmployeeController {
     }
 
 
+//    @DeleteMapping("/emp/{empId}")
+//    @ResponseBody
+//    public Msg deleteEmp(@PathVariable("empId")Integer empId){
+//        boolean b = employeeService.deleteById(empId);
+//        if (! b){
+//            return Msg.fail();
+//        }
+//        return Msg.success();
+//    }
+
+
+    @DeleteMapping("/emp/{empIds}")
+    @ResponseBody
+    public Msg deleteEmp(@PathVariable("empIds")String empIds){
+        boolean result = false;
+        if(empIds.contains("-")){
+            List<Integer> del_ids = new ArrayList<>();
+            String[] str_ids = empIds.split("-");
+            //组装id的集合
+            for (String string : str_ids) {
+                del_ids.add(Integer.parseInt(string));
+            }
+            result =  employeeService.deleteBatch(del_ids);
+        }else{
+            Integer id = Integer.parseInt(empIds);
+            result =  employeeService.deleteEmp(id);
+        }
+        if (! result){
+            return Msg.fail();
+        }
+        return Msg.success();
+    }
 
 
 }
