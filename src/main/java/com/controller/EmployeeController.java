@@ -86,7 +86,19 @@ public class EmployeeController {
         return Msg.success().addData("emp",employee);
     }
 
-
+    @PutMapping("/emp/{empId}")
+    @ResponseBody
+    public Msg updateEmp(@Valid Employee employee,BindingResult result){
+        if (result.hasErrors()){
+            Map<String, Object> failMsg = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()) {
+                failMsg.put(fieldError.getField(),fieldError.getDefaultMessage());
+            }
+            return Msg.fail().addData("errorFields",failMsg);
+        }
+        employeeService.update(employee,new EntityWrapper<Employee>().eq("emp_id",employee.getEmpId()));
+        return Msg.success();
+    }
 
 
 
