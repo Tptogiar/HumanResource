@@ -1,6 +1,6 @@
 # HumanResource
  
- # SSM练手项目
+ # SSM-CURD练手项目
  
  #### 后端
 * RESTful
