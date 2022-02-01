@@ -26,7 +26,7 @@ import java.util.Map;
  * @author Tptogiar
  * @since 2022-01-28
  */
-@Controller
+@RestController
 @RequestMapping("/employee")
 public class EmployeeController {
 
@@ -35,7 +35,6 @@ public class EmployeeController {
 
 
     @GetMapping("/emps")
-    @ResponseBody
     public Msg getEmps(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
             @RequestParam(value = "per_page",defaultValue = "5")Integer size
@@ -47,7 +46,6 @@ public class EmployeeController {
 
 
     @PostMapping("/emp")
-    @ResponseBody
     public Msg saveEmp(@Valid Employee employee, BindingResult result){
         if (result.hasErrors()){
             Map<String, Object> failMsg = new HashMap<>();
@@ -63,7 +61,6 @@ public class EmployeeController {
 
 
     @GetMapping("/checkUsername")
-    @ResponseBody
     public Msg checkUsername(@RequestParam("username")String username){
         String regx = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})";
         if(!username.matches(regx)){
@@ -79,7 +76,6 @@ public class EmployeeController {
     }
 
     @GetMapping("/emp/{id}")
-    @ResponseBody
     public Msg getEmp(@PathVariable("id")Integer id){
         Employee employee =employeeService.getEmp(id);
         if (employee==null){
@@ -89,7 +85,6 @@ public class EmployeeController {
     }
 
     @PutMapping("/emp/{empId}")
-    @ResponseBody
     public Msg updateEmp(@Valid Employee employee,BindingResult result){
         if (result.hasErrors()){
             Map<String, Object> failMsg = new HashMap<>();
@@ -115,7 +110,6 @@ public class EmployeeController {
 
 
     @DeleteMapping("/emp/{empIds}")
-    @ResponseBody
     public Msg deleteEmp(@PathVariable("empIds")String empIds){
         boolean result = false;
         if(empIds.contains("-")){
